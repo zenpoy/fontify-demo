@@ -1,0 +1,21 @@
+{% extends "template.html" %}
+{% block content %}
+
+<div id="navbar">
+<ul>
+<li><a href="/"><img src="img/logo.png" alt="Fontify"/></a></li>
+<li><a href="/Poster">Poster</a></li>
+<li><a href="/About">About</a></li>
+</ul>
+</div>
+
+<div id="chat0">
+What's on your mind?
+<form name="input" action="/Chat" method="post">
+<input type="text" name="term">
+<input type="submit" value="Send">
+</form>
+</div>
+
+
+{% endblock %}

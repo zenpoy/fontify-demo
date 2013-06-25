@@ -1,2 +1,3 @@
 web: python main.py
-test: python main.py
+worker: python worker.py
+# test: python main.py

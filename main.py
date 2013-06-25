@@ -1,18 +1,28 @@
 import os
-from flask import Flask
+from flask import (
+Flask,
+request,
+render_template
+) 
+from rq import Queue
+from worker import conn
+from poster import make_poster
+
 
 app = Flask(__name__)
+q = Queue(connection=conn)   
 
-
-@app.route('/')
-@app.route('/poster')
-def poster():
+@app.route('/Poster')
+def poster_page():
     return 'Hello Poster!'
 
-
-@app.route('/chat')
-def chat():
-    return 'Hello Chat!'
+@app.route('/')
+@app.route('/Chat', methods=["GET", "POST"])
+@app.route('/<page>')
+def chat_page(page="Chat"):
+    if request.method == 'POST':
+        res = q.enqueue(make_poster, request.form['term'])
+    return render_template('chat.html', pagename=page, is_post=(request.method == 'POST'))
 
 
 if __name__ == '__main__':
