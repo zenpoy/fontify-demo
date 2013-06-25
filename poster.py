@@ -33,6 +33,7 @@ def make_poster(term):
 
     # needed for a known order on the dictionary
     cumsum = []
+    tot = 0
     
     for category in categories:
         category[1] = math.exp(category[1])
