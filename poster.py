@@ -25,8 +25,8 @@ def make_poster(term):
     # get classes from fontify: readable, friendly, serious, technical
     #
     params = urllib.urlencode({'term': term})
-    url = "http://fontify.herokuapp.com/categories.json"
-    f = urllib.urlopen(url, params)
+    url = "http://fontify.herokuapp.com/categories.json?%s"
+    f = urllib.urlopen(url % params)
     categories = json.loads(f.read())
     f.close()
 
