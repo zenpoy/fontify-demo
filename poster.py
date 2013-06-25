@@ -35,7 +35,7 @@ def make_poster(term):
     cumsum = []
     
     for category in categories:
-        category[1] = math.exp(categories[1])
+        category[1] = math.exp(category[1])
         tot += category[1]
 
     for category in categories:
