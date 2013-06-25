@@ -31,16 +31,15 @@ def make_poster(term):
     f.close()
 
     # needed for a known order on the dictionary
-    keys = list(categories.iterkeys())
     cumsum = []
     
-    for k in keys:
-        categories[k] = math.exp(categories[k])
-        tot += categories[k]
+    for category in categories:
+        category[1] = math.exp(categories[1])
+        tot += category[1]
 
-    for k in keys:
-        categories[k] = categories[k] / tot
-        cumsum.append(categories[k])
+    for category in categories:
+        category[1] = category[1] / tot
+        cumsum.append(category[1])
         cumsum[-1] = sum(cumsum[:-2])
 
     # randomize based on class:
@@ -85,10 +84,10 @@ def make_poster(term):
 
     # choose:
     choice = weighted_choice(cumsum)
-    font = random.choice(fonts[keys[choice]])
+    font = random.choice(fonts[categories[choice][0]])
 
     choice = weighted_choice(cumsum)
-    colorset =  random.choice(colorsets[keys[choice]])
+    colorset =  random.choice(colorsets[categories[choice][0]])
     # put the result in the database
     timestamp = time.time()
     posters_collection = db['posters']
