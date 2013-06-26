@@ -10,6 +10,7 @@ from pymongo import (
     ASCENDING,
     DESCENDING
 )
+import pusher
 
 def weighted_choice(cumsum):
     c = random.random()
@@ -34,7 +35,7 @@ def make_poster(term):
     # needed for a known order on the dictionary
     cumsum = []
     tot = 0
-    
+
     for category in categories:
         category[1] = math.exp(category[1])
         tot += category[1]
@@ -96,6 +97,18 @@ def make_poster(term):
     poster = { 
         "timestamp" : timestamp,
         "font" : font,
-        "colorset" : colorset
+        "colorset" : colorset,
+        "term" : term,
     }
+    
+    #push to database
     posters_collection.insert(poster)
+    
+    #push message to clients
+    p = pusher.Pusher(
+      app_id='48028',
+      key='b66e206fbe2cbb7a98bc',
+      secret='7706a8c5f5963da805dd'
+    )
+
+    p['posters_channel'].trigger('new_poster', poster)

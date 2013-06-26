@@ -8,13 +8,12 @@ from rq import Queue
 from worker import conn
 from poster import make_poster
 
-
 app = Flask(__name__)
 q = Queue(connection=conn)   
 
 @app.route('/Poster')
 def poster_page():
-    return 'Hello Poster!'
+    return render_template('poster.html')
 
 @app.route('/')
 @app.route('/Chat', methods=["GET", "POST"])
