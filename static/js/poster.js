@@ -44,7 +44,7 @@ function create_poster(data) {
 	var canvas = document.getElementById("poster_canvas");
 	var ctx=canvas.getContext("2d");
 
-	font_size = Math.sqrt((canvas.width * canvas.height) / data.term.length);
+	font_size = Math.sqrt((canvas.width * canvas.height) / data.term.length) / 2;
 
 
 	clear_canvas(canvas);
@@ -55,7 +55,7 @@ function create_poster(data) {
 	ctx.font = font_size + "px " + data.font;
 	ctx.fillStyle = data.colorset[1];
 
-	wrap_text(ctx, data.term, 50, font_size + 10, canvas.width - 50, font_size + 10);
+	wrap_text(ctx, data.term, 50, font_size, canvas.width - 50, font_size + 10);
 };
 
 var pusher = new Pusher('b66e206fbe2cbb7a98bc'); // uses your APP KEY
