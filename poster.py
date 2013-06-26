@@ -50,7 +50,7 @@ def make_poster(term):
     # 1. fonts
     fonts = {
                 "readable": ["Tahoma, Geneva, sans-serif", "Trebuchet MS, Helvetica, sans-serif", "Verdana, Geneva, sans-serif", "Arial Black, Gadget, sans-serif", "Helvetica, sans-serif"],
-                "friendly": ["Comic Sans MS, Comic Sans MS, cursive"],
+                "friendly": ["Comic Sans MS, cursive"],
                 "serious": ["Georgia, serif", "Times New Roman, Times, serif", "Palatino Linotype, Book Antiqua, Palatino, serif", "bookman"],
                 "technical": ["Lucida Console, Monaco, monospace", "Courier New, monospace"],
             }
