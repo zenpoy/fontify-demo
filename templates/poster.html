@@ -4,7 +4,9 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/poster.js') }}"></script>
 {% endblock %}
 {% block content %}
-<canvas>
-
+<div id=div_canvas>
+<canvas id="poster_canvas" width="1024" height="600">
+	Hello Poster!
 </canvas>
+</div>
 {% endblock %}
