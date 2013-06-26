@@ -1,8 +1,9 @@
 /* This is poster.js */
 
-function wrap_text(context, text, x, y, maxWidth, lineHeight) {
+function wrap_text(context, text, x, y, maxWidth, lineHeight, is_simulation) {
+    is_simulation= typeof is_simulation !== 'undefined' ? is_simulation : false;
     var cars = text.split("\n");
-
+    var lines_counter = 1;
     for (var ii = 0; ii < cars.length; ii++) {
 
         var line = "";
@@ -14,7 +15,9 @@ function wrap_text(context, text, x, y, maxWidth, lineHeight) {
             var testWidth = metrics.width;
 
             if (testWidth > maxWidth) {
-                context.fillText(line, x, y);
+            	if (!is_simulation)
+                	context.fillText(line, x, y);
+                lines_counter++
                 line = words[n] + " ";
                 y += lineHeight;
             }
@@ -22,10 +25,12 @@ function wrap_text(context, text, x, y, maxWidth, lineHeight) {
                 line = testLine;
             }
         }
-
-        context.fillText(line, x, y);
+        if (!is_simulation)
+        	context.fillText(line, x, y);
+        lines_counter++;
         y += lineHeight;
     }
+    return lines_counter;
  };
 
 function clear_canvas(canvas) {
@@ -44,15 +49,24 @@ function create_poster(data) {
 	var canvas = document.getElementById("poster_canvas");
 	var ctx=canvas.getContext("2d");
 
-	font_size = Math.max(canvas.height / data.term.length * Math.ceil(data.term.length / 30), 150) ;
-
-
+	
 	clear_canvas(canvas);
 	
 	ctx.fillStyle = data.colorset[0];
     ctx.fillRect (0, 0, canvas.width, canvas.width);
 
+	font_size = 500;
 	ctx.font = font_size + "px " + data.font;
+	
+	lines = 100;
+
+	while (lines > (canvas.height / (font_size + 10)))
+	{
+		font_size--;
+		ctx.font = font_size + "px " + data.font;
+		lines = wrap_text(ctx, data.term, 50, font_size, canvas.width - 50, font_size + 10, true);
+	}
+
 	ctx.fillStyle = data.colorset[1];
 
 	wrap_text(ctx, data.term, 50, font_size, canvas.width - 50, font_size + 10);

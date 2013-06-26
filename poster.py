@@ -35,6 +35,7 @@ def make_poster(term):
     cumsum = []
     tot = 0
 
+
     for category in categories:
         category[1] = math.exp(category[1])
         tot += category[1]
@@ -85,7 +86,7 @@ def make_poster(term):
     # 6. background shape locations in relation to the lines/words/characters of text
 
     # choose:
-    choice = weighted_choice(cumsum)
+    choice = 0;
     font = random.choice(fonts[categories[choice][0]])
 
     choice = weighted_choice(cumsum)
