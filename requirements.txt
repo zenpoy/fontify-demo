@@ -4,6 +4,7 @@ MarkupSafe==0.18
 Werkzeug==0.9.1
 distribute==0.6.27
 itsdangerous==0.21
+pusher==0.7
 pymongo==2.5.2
 python-dateutil==2.1
 pytz==2013b
