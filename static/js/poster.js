@@ -44,7 +44,7 @@ function create_poster(data) {
 	var canvas = document.getElementById("poster_canvas");
 	var ctx=canvas.getContext("2d");
 
-	font_size = Math.sqrt((canvas.width * canvas.height) / data.term.length) / 2;
+	font_size = Math.max(canvas.height / data.term.length * Math.ceil(data.term.length / 30), 150) ;
 
 
 	clear_canvas(canvas);
