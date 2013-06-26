@@ -103,6 +103,12 @@ def make_poster(term):
     
     #push to database
     posters_collection.insert(poster)
+
+    poster_event = {
+        "term" : term,
+        "colorset" : colorset,
+        "font" : font,
+    }
     
     #push message to clients
     p = pusher.Pusher(
@@ -111,4 +117,4 @@ def make_poster(term):
       secret='7706a8c5f5963da805dd'
     )
 
-    p['posters_channel'].trigger('new_poster', poster)
+    p['posters_channel'].trigger('new_poster', poster_event)
