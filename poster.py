@@ -17,7 +17,6 @@ def weighted_choice(cumsum):
     for i, v in enumerate(cumsum):
         if (c < v):
            return i
-
     return i
 
 def make_poster(term):
@@ -43,7 +42,7 @@ def make_poster(term):
     for category in categories:
         category[1] = category[1] / tot
         cumsum.append(category[1])
-        cumsum[-1] = sum(cumsum[:-2])
+        cumsum[-1] = sum(cumsum[-2:])
 
     # randomize based on class:
     # for each class there are available options for:
