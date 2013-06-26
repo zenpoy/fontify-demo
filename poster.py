@@ -49,10 +49,10 @@ def make_poster(term):
     # for each class there are available options for:
     # 1. fonts
     fonts = {
-                "readable": ["helvetica", "verdana"],
-                "friendly": ["comic sans ms"],
-                "serious": ["georgia", "times new roman"],
-                "technical": ["Courier New"],
+                "readable": ["Tahoma, Geneva, sans-serif", "Trebuchet MS, Helvetica, sans-serif", "Verdana, Geneva, sans-serif", "Arial Black, Gadget, sans-serif", "Helvetica, sans-serif"],
+                "friendly": ["Comic Sans MS, Comic Sans MS, cursive"],
+                "serious": ["Georgia, serif", "Times New Roman, Times, serif", "Palatino Linotype, Book Antiqua, Palatino, serif", "bookman"],
+                "technical": ["Lucida Console, Monaco, monospace", "Courier New, monospace"],
             }
     # 2. colors
     colorsets = {

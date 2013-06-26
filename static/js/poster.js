@@ -62,7 +62,7 @@ function create_poster(data) {
 
 	while (lines > (canvas.height / (font_size + 10)))
 	{
-		font_size--;
+		font_size-=2;
 		ctx.font = font_size + "px " + data.font;
 		lines = wrap_text(ctx, data.term, 50, font_size, canvas.width - 50, font_size + 10, true);
 	}
