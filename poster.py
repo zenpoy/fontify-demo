@@ -49,9 +49,9 @@ def make_poster(term):
     # 1. fonts
     fonts = {
                 "readable": ["helvetica", "verdana"],
-                "friendly": ["comic sans ms", "lucida casual"],
+                "friendly": ["comic sans ms"],
                 "serious": ["georgia", "times new roman"],
-                "technical": ["Consolas", "Menlo", "Monaco", "Courier New"],
+                "technical": ["Courier New"],
             }
     # 2. colors
     colorsets = {
