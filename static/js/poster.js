@@ -1,6 +1,6 @@
 /* This is poster.js */
 
-var posterIntervalTime = 60000;
+var posterIntervalTime = 120000;
 
 
 const COLOR_FONT = 0;
@@ -10,20 +10,20 @@ const COLOR_GRAD_1 = 1;
 const COLOR_GRAD_2 = 2;
 
 function load_random_poster() {
-    var xmlhttp;
+    var myXmlhttpObj;
     if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
+        myXmlhttpObj = new XMLHttpRequest();
     }
     else {// code for IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        myXmlhttpObj = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-            create_poster(JSON.parse(xmlhttp.responseText));
+    myXmlhttpObj.onreadystatechange = function() {
+        if (myXmlhttpObj.readyState==4 && myXmlhttpObj.status==200) {
+            create_poster(JSON.parse(myXmlhttpObj.responseText));
         }
     };
-    xmlhttp.open("GET","/Poster/random.json",true);
-    xmlhttp.send();
+    myXmlhttpObj.open("GET","/Poster/random.json",true);
+    myXmlhttpObj.send();
 };
 
 function wrap_text(context, text, x, y, maxWidth, lineHeight, is_simulation, alignment) {

@@ -161,9 +161,6 @@ def make_poster(term):
         "ra": ra,
     }
     
-    #push to database
-    posters_collection.insert(poster)
-
     poster_event = create_poster_event[poster]
     
     #push message to clients
@@ -174,3 +171,6 @@ def make_poster(term):
     )
 
     p['posters_channel'].trigger('new_poster', poster_event)
+
+    #push to database
+    posters_collection.insert(poster)
