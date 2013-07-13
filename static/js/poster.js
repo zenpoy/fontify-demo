@@ -1,6 +1,6 @@
 /* This is poster.js */
 
-var posterIntervalTime = 15000;
+var posterIntervalTime = 60000;
 
 
 const COLOR_FONT = 0;
