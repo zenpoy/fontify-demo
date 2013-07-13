@@ -6,10 +6,19 @@ render_template
 ) 
 from rq import Queue
 from worker import conn
-from poster import make_poster
+from poster import (
+	make_poster,
+	get_poster,
+	create_poster_event
+)
+import json
 
 app = Flask(__name__)
-q = Queue(connection=conn)   
+q = Queue(connection=conn)
+
+@app.route('/Poster/random.json')
+def random_poster_page():
+    return json.dumps(create_poster_event(get_poster(-1)));
 
 @app.route('/Poster')
 def poster_page():

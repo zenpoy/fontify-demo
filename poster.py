@@ -19,10 +19,28 @@ def weighted_choice(cumsum):
            return i
     return i
 
+def get_poster(ra):
+    mongo_url = os.environ.get('MONGOHQ_URL', 'mongodb://heroku:26c89fbccb8031920e695ab2bc4e71ba@dharma.mongohq.com:10072/app16438672')
+    connection = MongoClient(mongo_url)
+    db = connection['app16438672']
+    posters_collection = db['posters']
+
+    if (not ra or ra < 0):
+        ra = random.random()
+    #get poster from database
+    poster = posters_collection.find_one( { "ra" : { "$gte" : ra } } )
+    if not poster:
+        poster = posters_collection.find_one( { "ra" : { "$lte" : ra } } )
+
+    return poster
+
+
 def make_poster(term):
     mongo_url = os.environ.get('MONGOHQ_URL', 'mongodb://heroku:26c89fbccb8031920e695ab2bc4e71ba@dharma.mongohq.com:10072/app16438672')
     connection = MongoClient(mongo_url)
     db = connection['app16438672']
+    posters_collection = db['posters']
+
     # get classes from fontify: readable, friendly, serious, technical
     #
     params = urllib.urlencode({'term': term})
@@ -49,10 +67,43 @@ def make_poster(term):
     # for each class there are available options for:
     # 1. fonts
     fonts = {
-                "readable": ["Tahoma, Geneva, sans-serif", "Trebuchet MS, Helvetica, sans-serif", "Verdana, Geneva, sans-serif", "Arial Black, Gadget, sans-serif", "Helvetica, sans-serif"],
-                "friendly": ["Comic Sans MS, cursive"],
-                "serious": ["Georgia, serif", "Times New Roman, Times, serif", "Palatino Linotype, Book Antiqua, Palatino, serif", "bookman"],
-                "technical": ["Lucida Console, Monaco, monospace", "Courier New, monospace"],
+
+               "readable": [   "Tahoma, Geneva, sans-serif", 
+                                "Trebuchet MS, Helvetica, sans-serif", 
+                                "Verdana, Geneva, sans-serif", 
+                                "Arial Black, Gadget, sans-serif", 
+                                "Helvetica, sans-serif"
+                            ],
+
+                "friendly": [
+                                "Comic Sans MS, cursive",
+                                "Chewy, cursive",
+                                "Permanent Marker, cursive",
+                                "Pacifico, cursive",
+                                "Rock Salt, cursive",
+                                "Handlee, cursive"
+                            ],
+                "serious": ["Georgia, serif", 
+                            "Times New Roman, Times, serif", 
+                            "Palatino Linotype, Book Antiqua, Palatino, serif", 
+                            "bookman, serif",
+                            "PT Serif, serif",
+                            "Merriweather , serif",
+                            "Lora , serif",
+                            "Vollkorn, serif",
+                            "Goudy Bookletter 1911, serif",
+                            "MedievalSharp, serif",
+                            "UnifrakturCook, serif",
+                            "Modern Antiqua, serif",
+                            ],
+                "technical": [  "Lucida Console, Monaco, monospace", 
+                                "Courier New, monospace",
+                                "Arvo, monospace",
+                                "Rokkitt, monospace", 
+                                "Cutive Mono, monospace",
+                                "Inconsolata, monospce",
+                            ],
+
             }
     # 2. colors
     colorsets = {
@@ -93,22 +144,19 @@ def make_poster(term):
     colorset =  random.choice(colorsets[categories[choice][0]])
     # put the result in the database
     timestamp = time.time()
-    posters_collection = db['posters']
+    ra = random.random()
     poster = { 
         "timestamp" : timestamp,
         "font" : font,
         "colorset" : colorset,
         "term" : term,
+        "ra": ra,
     }
     
     #push to database
     posters_collection.insert(poster)
 
-    poster_event = {
-        "term" : term,
-        "colorset" : colorset,
-        "font" : font,
-    }
+    poster_event = create_poster_event[poster]
     
     #push message to clients
     p = pusher.Pusher(
@@ -118,3 +166,11 @@ def make_poster(term):
     )
 
     p['posters_channel'].trigger('new_poster', poster_event)
+
+def create_poster_event(data):
+    poster_event = {
+        "term" : data["term"],
+        "colorset" : data["colorset"],
+        "font" : data["font"],
+    } 
+    return poster_event
