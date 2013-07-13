@@ -161,7 +161,7 @@ def make_poster(term):
         "ra": ra,
     }
     
-    poster_event = create_poster_event[poster]
+    poster_event = create_poster_event(poster)
     
     #push message to clients
     p = pusher.Pusher(
