@@ -12,6 +12,14 @@ from pymongo import (
 )
 import pusher
 
+def create_poster_event(data):
+    poster_event = {
+        "term" : data["term"],
+        "colorset" : data["colorset"],
+        "font" : data["font"],
+    } 
+    return poster_event
+
 def weighted_choice(cumsum):
     c = random.random()
     for i, v in enumerate(cumsum):
@@ -166,11 +174,3 @@ def make_poster(term):
     )
 
     p['posters_channel'].trigger('new_poster', poster_event)
-
-def create_poster_event(data):
-    poster_event = {
-        "term" : data["term"],
-        "colorset" : data["colorset"],
-        "font" : data["font"],
-    } 
-    return poster_event

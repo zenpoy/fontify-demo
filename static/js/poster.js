@@ -135,7 +135,6 @@ var pusher = new Pusher('b66e206fbe2cbb7a98bc'); // uses your APP KEY
 var channel = pusher.subscribe('posters_channel');
 channel.bind('new_poster', create_poster);
 
-
 //This will show different poster for differnt pages
 load_random_poster();
 var posterIntervalHandle = window.setInterval(load_random_poster, posterIntervalTime);
