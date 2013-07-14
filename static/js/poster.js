@@ -1,7 +1,42 @@
 /* This is poster.js */
+var fonts = [
+                    "Chewy",
+                    "Permanent Marker",
+                    "Pacifico",
+                    "Rock Salt",
+                    "Handlee",
+                    "PT Serif",
+                    "Merriweather",
+                    "Lora",
+                    "Vollkorn",
+                    "Goudy Bookletter 1911",
+                    "MedievalSharp",
+                    "UnifrakturCook",
+                    "Modern Antiqua",
+                    "Arvo",
+                    "Rokkitt",
+                    "Cutive Mono",
+                    "Inconsolata"
+                ];
+
+WebFontConfig = {
+                active: load_random_poster,
+                google: {
+                      families:  fonts
+                }
+            };
+        
+(function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1.4.8/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+})();
 
 var posterIntervalTime = 120000;
-
 
 const COLOR_FONT = 0;
 const COLOR_FONT_SHADOW = 3;
@@ -136,5 +171,4 @@ var channel = pusher.subscribe('posters_channel');
 channel.bind('new_poster', create_poster);
 
 //This will show different poster for differnt pages
-load_random_poster();
 var posterIntervalHandle = window.setInterval(load_random_poster, posterIntervalTime);
